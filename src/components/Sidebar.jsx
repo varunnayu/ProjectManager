@@ -27,7 +27,7 @@ const NAV_ITEMS = [
 ];
 
 const BOTTOM_ITEMS = [
-  { label: "Settings", to: "/settings", icon: <RiSettings3Line /> },
+  { label: "Settings", to: "/profile", icon: <RiSettings3Line /> },
 ];
 
 const sidebarVariants = {

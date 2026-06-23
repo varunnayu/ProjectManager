@@ -3,30 +3,18 @@ import { createContext, useContext, useEffect, useState } from "react";
 const ThemeContext = createContext(null);
 
 export function ThemeProvider({ children }) {
-  const [theme, setTheme] = useState(() => {
-    const saved = localStorage.getItem("pv_theme");
-    if (saved === "light" || saved === "dark") {
-      return saved;
-    }
-    // Check system browser preference
-    if (window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches) {
-      return "light";
-    }
-    return "dark"; // Default theme is dark
-  });
+  const [theme, setTheme] = useState("dark"); // Locked to dark mode
 
   useEffect(() => {
     const root = document.documentElement;
-    if (theme === "light") {
-      root.setAttribute("data-theme", "light");
-    } else {
-      root.removeAttribute("data-theme");
-    }
-    localStorage.setItem("pv_theme", theme);
+    // Always remove data-theme to ensure dark mode fallback styles apply
+    root.removeAttribute("data-theme");
+    localStorage.setItem("pv_theme", "dark");
   }, [theme]);
 
+  // Make toggleTheme a no-op since we are dark-only
   const toggleTheme = () => {
-    setTheme((prev) => (prev === "dark" ? "light" : "dark"));
+    console.log("Light theme has been disabled by user request. Staying dark.");
   };
 
   return (

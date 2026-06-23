@@ -39,7 +39,11 @@ export function useDocument(collectionPath, documentId) {
       }
     );
 
-    return unsubscribe;
+    return () => {
+      setTimeout(() => {
+        unsubscribe();
+      }, 100);
+    };
   }, [collectionPath, documentId]);
 
   return { document, loading, error };

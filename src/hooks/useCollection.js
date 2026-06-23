@@ -21,7 +21,7 @@ import { db } from "../firebase/config";
  *   where("userId", "==", user.uid)
  * ], "createdAt");
  */
-export function useCollection(collectionPath, constraints = [], orderField = null) {
+export function useCollection(collectionPath, constraints = [], orderField = null, deps = []) {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -54,9 +54,13 @@ export function useCollection(collectionPath, constraints = [], orderField = nul
       }
     );
 
-    return unsubscribe;
+    return () => {
+      setTimeout(() => {
+        unsubscribe();
+      }, 100);
+    };
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [collectionPath, orderField]);
+  }, [collectionPath, orderField, ...deps]);
 
   return { data, loading, error };
 }

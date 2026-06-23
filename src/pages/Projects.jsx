@@ -232,12 +232,40 @@ export default function Projects() {
     <div className="space-y-6">
       {/* Page Header */}
       <div className="flex flex-col xl:flex-row xl:items-center justify-between gap-6 pb-2">
-        <div>
-          <h1 className="page-title text-3xl font-extrabold tracking-tight">Projects</h1>
-          <p className="page-subtitle text-sm text-gray-400">
-            Organize and track all your projects in one place.
-          </p>
+        <div className="flex items-center justify-between xl:justify-start w-full xl:w-auto">
+          <div>
+            <h1 className="page-title text-3xl font-extrabold tracking-tight">Projects</h1>
+            <p className="page-subtitle text-sm text-gray-400">
+              Organize and track all your projects in one place.
+            </p>
+          </div>
+          
+          <button
+            onClick={() => {
+              setEditingProject(null);
+              setFormOpen(true);
+            }}
+            className="btn btn-primary xl:hidden"
+            id="btn-create-project-mobile"
+          >
+            <RiAddLine className="text-lg" />
+            <span className="hidden sm:inline">New Project</span>
+          </button>
         </div>
+
+        {/* Action Button & KPI Mini Cards Row */}
+        <div className="flex flex-wrap gap-4 items-center w-full xl:w-auto justify-between xl:justify-end">
+          <button
+            onClick={() => {
+              setEditingProject(null);
+              setFormOpen(true);
+            }}
+            className="btn btn-primary hidden xl:flex"
+            id="btn-create-project-desktop"
+          >
+            <RiAddLine className="text-lg" />
+            New Project
+          </button>
 
         {/* KPI Mini Cards Row */}
         <div className="flex flex-wrap gap-4 items-center">
@@ -284,6 +312,7 @@ export default function Projects() {
               <div className="text-lg font-extrabold text-white mt-1.5 leading-none">{onHoldCount}</div>
             </div>
           </div>
+        </div>
         </div>
       </div>
 

@@ -15,7 +15,7 @@ const PAGE_TITLES = {
   "/tasks": "Tasks",
   "/notes": "Notes",
   "/resources": "Resources",
-  "/settings": "Settings",
+  "/profile": "Profile Settings",
 };
 
 export default function Topbar({ onOpenSearch, onToggleSidebar }) {
@@ -53,111 +53,58 @@ export default function Topbar({ onOpenSearch, onToggleSidebar }) {
     <header
       className="flex items-center justify-between gap-4 sticky top-0 z-40"
       style={{
-        height: 72,
+        height: 64,
         padding: "0 1.5rem",
         borderBottom: "1px solid var(--color-border)",
-        background: "rgba(2, 6, 23, 0.7)",
-        backdropFilter: "blur(16px)",
-        WebkitBackdropFilter: "blur(16px)",
+        background: "rgba(0, 0, 0, 0.5)",
+        backdropFilter: "blur(12px)",
+        WebkitBackdropFilter: "blur(12px)",
       }}
     >
       {/* Left: Mobile menu toggle + Page title */}
-      <div className="flex items-center gap-3 min-w-0 flex-shrink-0">
+      <div className="flex items-center gap-4 min-w-0 flex-shrink-0">
         <button
           onClick={onToggleSidebar}
-          className="topbar-menu-btn"
+          className="lg:hidden text-zinc-400 hover:text-white transition-colors"
           aria-label="Open sidebar"
           title="Open sidebar"
         >
-          <RiMenuLine />
+          <RiMenuLine className="text-xl" />
         </button>
+        <h2 className="text-sm font-bold text-white tracking-wide uppercase hidden sm:block">
+          {title}
+        </h2>
       </div>
 
-      {/* Center: Search Trigger */}
+      {/* Right: Search Bar */}
       <div
-        className="flex-1 max-w-[520px] mx-auto cursor-pointer select-none group"
+        className="flex-1 sm:max-w-[320px] ml-auto cursor-pointer select-none group"
         role="search"
         onClick={onOpenSearch}
       >
         <div
-          className="flex items-center justify-between gap-2 px-4 transition-all duration-200"
+          className="flex items-center justify-between gap-2 px-3 transition-all duration-200"
           style={{
-            height: 44,
+            height: 36,
             borderRadius: "var(--radius-lg)",
             background: "var(--color-bg-input)",
             border: "1px solid var(--color-border)",
           }}
         >
-          <div className="flex items-center gap-2.5 min-w-0">
+          <div className="flex items-center gap-2 min-w-0">
             <RiSearchLine
-              className="text-slate-500 group-hover:text-indigo-400 transition-colors flex-shrink-0"
-              style={{ fontSize: "1rem" }}
+              className="text-zinc-500 group-hover:text-zinc-300 transition-colors flex-shrink-0"
+              style={{ fontSize: "0.9rem" }}
               aria-hidden="true"
             />
-            <span className="text-[13px] text-slate-500 font-medium truncate group-hover:text-slate-400 transition-colors">
+            <span className="text-xs text-zinc-500 font-medium truncate group-hover:text-zinc-400 transition-colors">
               {searchPlaceholder}
             </span>
           </div>
-          <kbd className="hidden sm:inline-block px-1.5 py-0.5 rounded text-[10px] font-mono font-bold text-slate-500"
-            style={{ background: "rgba(15, 23, 42, 0.8)", border: "1px solid rgba(99, 102, 241, 0.15)" }}
-          >
+          <kbd className="hidden sm:inline-block px-1.5 py-0.5 rounded text-[9px] font-mono font-bold text-zinc-500 border border-zinc-800 bg-black/40">
             ⌘K
           </kbd>
         </div>
-      </div>
-
-      {/* Right: Actions */}
-      <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
-        <button
-          onClick={handleNewClick}
-          className="btn btn-primary btn-sm flex items-center gap-1.5"
-          id="topbar-new-btn"
-          aria-label={newButtonText}
-          title={newButtonText}
-        >
-          <RiAddLine aria-hidden="true" />
-          <span className="hidden sm:inline">{newButtonText}</span>
-        </button>
-
-        <button
-          className="relative flex items-center justify-center cursor-pointer"
-          id="topbar-notifications-btn"
-          aria-label="Notifications"
-          title="Notifications"
-          style={{
-            width: 36, height: 36,
-            borderRadius: "var(--radius-sm)",
-            background: "var(--color-bg-input)",
-            border: "1px solid var(--color-border)",
-            color: "var(--color-text-secondary)",
-            fontSize: "1rem",
-            transition: "all var(--transition-fast)",
-          }}
-        >
-          <RiBellLine aria-hidden="true" />
-          <span className="absolute -top-1 -right-1 bg-rose-500 text-[8px] font-black text-white rounded-full w-3.5 h-3.5 flex items-center justify-center" style={{ border: "2px solid var(--color-bg-primary)" }}>
-            3
-          </span>
-        </button>
-
-        <button
-          onClick={toggleTheme}
-          className="flex items-center justify-center cursor-pointer"
-          id="topbar-theme-btn"
-          aria-label="Toggle theme"
-          title="Toggle theme"
-          style={{
-            width: 36, height: 36,
-            borderRadius: "var(--radius-sm)",
-            background: "var(--color-bg-input)",
-            border: "1px solid var(--color-border)",
-            color: "var(--color-text-secondary)",
-            fontSize: "1rem",
-            transition: "all var(--transition-fast)",
-          }}
-        >
-          {theme === "dark" ? <RiSunLine aria-hidden="true" /> : <RiMoonLine aria-hidden="true" />}
-        </button>
       </div>
     </header>
   );
