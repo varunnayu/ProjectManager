@@ -164,7 +164,7 @@ export default function Dashboard() {
       </div>
 
       {/* ─── Quick Launch Navigation Tiles ─── */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5">
         {STATS_DATA.map((stat, i) => (
           <StatCard key={stat.label} {...stat} index={i} />
         ))}

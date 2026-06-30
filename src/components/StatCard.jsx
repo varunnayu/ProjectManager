@@ -66,10 +66,9 @@ export default function StatCard({
   );
 
   const containerProps = {
-    className: `glass-card relative overflow-hidden flex flex-col justify-between group ${to ? "cursor-pointer hover:bg-white/5" : "cursor-default"}`,
+    className: `glass-card relative overflow-hidden flex flex-col justify-between group p-4 sm:p-6 ${to ? "cursor-pointer hover:bg-white/5" : "cursor-default"}`,
     style: {
       minHeight: 180,
-      padding: "24px",
       "--card-accent": accentColor,
     },
     initial: { opacity: 0, y: 16 },

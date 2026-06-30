@@ -18,12 +18,14 @@ import { LogService } from "../services/logService";
 import { ProjectService } from "../services/projectService";
 import { useAuth } from "../context/AuthContext";
 import { useToast } from "../context/ToastContext";
+import { useConfirm } from "../context/ConfirmContext";
 import LogForm from "../components/LogForm";
 import { SkeletonLogsList } from "../components/Skeleton";
 
 export default function Logs() {
   const { user } = useAuth();
   const { addToast } = useToast();
+  const { confirm } = useConfirm();
 
   const [logs, setLogs] = useState([]);
   const [projects, setProjects] = useState([]);
@@ -81,7 +83,7 @@ export default function Logs() {
 
   const handleDelete = async (logId, logDate) => {
     const formattedDate = new Date(logDate).toLocaleDateString("en-US", { month: "short", day: "numeric" });
-    if (confirm(`Delete the daily log for ${formattedDate}?`)) {
+    if (await confirm(`Delete the daily log for ${formattedDate}?`)) {
       try {
         await LogService.delete(logId);
         addToast({ message: "Daily log removed.", type: "success" });

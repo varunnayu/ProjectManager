@@ -20,6 +20,7 @@ import { ResourceService } from "../services/resourceService";
 import { ProjectService } from "../services/projectService";
 import { useAuth } from "../context/AuthContext";
 import { useToast } from "../context/ToastContext";
+import { useConfirm } from "../context/ConfirmContext";
 import { SkeletonGrid } from "../components/Skeleton";
 
 const TYPE_ICONS = {
@@ -43,6 +44,7 @@ const TYPE_BADGES = {
 export default function Resources() {
   const { user } = useAuth();
   const { addToast } = useToast();
+  const { confirm } = useConfirm();
 
   const [resources, setResources] = useState([]);
   const [projects, setProjects] = useState([]);
@@ -153,7 +155,7 @@ export default function Resources() {
   const handleDelete = async (e, resId, resTitle) => {
     e.stopPropagation();
     e.preventDefault();
-    if (confirm(`Delete resource "${resTitle}"?`)) {
+    if (await confirm(`Delete resource "${resTitle}"?`)) {
       try {
         await ResourceService.delete(resId);
         addToast({ message: "Resource deleted.", type: "success" });

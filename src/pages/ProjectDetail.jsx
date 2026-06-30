@@ -18,6 +18,7 @@ import {
 } from "react-icons/ri";
 import { ProjectService } from "../services/projectService";
 import { useToast } from "../context/ToastContext";
+import { useConfirm } from "../context/ConfirmContext";
 import ProjectForm from "../components/ProjectForm";
 import { SkeletonCard } from "../components/Skeleton";
 
@@ -40,6 +41,7 @@ export default function ProjectDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
   const { addToast } = useToast();
+  const { confirm } = useConfirm();
 
   const [project, setProject] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -139,7 +141,7 @@ export default function ProjectDetail() {
   };
 
   const handleDelete = async () => {
-    if (confirm(`Delete "${project?.title}" permanently? This cannot be undone.`)) {
+    if (await confirm(`Delete "${project?.title}" permanently? This cannot be undone.`)) {
       try {
         await ProjectService.delete(id);
         addToast({ message: "Project deleted.", type: "success" });

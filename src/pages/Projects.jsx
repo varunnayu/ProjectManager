@@ -17,6 +17,7 @@ import {
 import { ProjectService } from "../services/projectService";
 import { useAuth } from "../context/AuthContext";
 import { useToast } from "../context/ToastContext";
+import { useConfirm } from "../context/ConfirmContext";
 import ProjectCard from "../components/ProjectCard";
 import ProjectForm from "../components/ProjectForm";
 import { SkeletonGrid } from "../components/Skeleton";
@@ -24,6 +25,7 @@ import { SkeletonGrid } from "../components/Skeleton";
 export default function Projects() {
   const { user } = useAuth();
   const { addToast } = useToast();
+  const { confirm } = useConfirm();
 
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -101,7 +103,7 @@ export default function Projects() {
   };
 
   const handleDelete = async (projectId, projectTitle) => {
-    if (confirm(`Are you sure you want to permanently delete "${projectTitle}"?`)) {
+    if (await confirm(`Are you sure you want to permanently delete "${projectTitle}"?`)) {
       try {
         await ProjectService.delete(projectId);
         addToast({ message: "Project deleted successfully.", type: "success" });
@@ -239,18 +241,6 @@ export default function Projects() {
               Organize and track all your projects in one place.
             </p>
           </div>
-          
-          <button
-            onClick={() => {
-              setEditingProject(null);
-              setFormOpen(true);
-            }}
-            className="btn btn-primary xl:hidden"
-            id="btn-create-project-mobile"
-          >
-            <RiAddLine className="text-lg" />
-            <span className="hidden sm:inline">New Project</span>
-          </button>
         </div>
 
         {/* Action Button & KPI Mini Cards Row */}
@@ -260,8 +250,8 @@ export default function Projects() {
               setEditingProject(null);
               setFormOpen(true);
             }}
-            className="btn btn-primary hidden xl:flex"
-            id="btn-create-project-desktop"
+            className="btn btn-primary flex items-center gap-1"
+            id="btn-create-project"
           >
             <RiAddLine className="text-lg" />
             New Project

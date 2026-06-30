@@ -21,6 +21,7 @@ import { TaskService } from "../services/taskService";
 import { ProjectService } from "../services/projectService";
 import { useAuth } from "../context/AuthContext";
 import { useToast } from "../context/ToastContext";
+import { useConfirm } from "../context/ConfirmContext";
 import TaskForm from "../components/TaskForm";
 import { SkeletonGrid } from "../components/Skeleton";
 
@@ -40,6 +41,7 @@ const COLUMNS = [
 export default function Tasks() {
   const { user } = useAuth();
   const { addToast } = useToast();
+  const { confirm } = useConfirm();
 
   const [tasks, setTasks] = useState([]);
   const [projects, setProjects] = useState([]);
@@ -119,7 +121,7 @@ export default function Tasks() {
   };
 
   const handleDelete = async (taskId, taskTitle) => {
-    if (confirm(`Delete task "${taskTitle}"?`)) {
+    if (await confirm(`Delete task "${taskTitle}"?`)) {
       try {
         await TaskService.delete(taskId);
         addToast({ message: "Task removed.", type: "success" });

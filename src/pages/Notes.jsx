@@ -22,6 +22,7 @@ import { NoteService } from "../services/noteService";
 import { ProjectService } from "../services/projectService";
 import { useAuth } from "../context/AuthContext";
 import { useToast } from "../context/ToastContext";
+import { useConfirm } from "../context/ConfirmContext";
 import { SkeletonList } from "../components/Skeleton";
 
 // Simple, fast Markdown HTML converter
@@ -76,6 +77,7 @@ const parseMarkdown = (text) => {
 export default function Notes() {
   const { user } = useAuth();
   const { addToast } = useToast();
+  const { confirm } = useConfirm();
 
   const [notes, setNotes] = useState([]);
   const [projects, setProjects] = useState([]);
@@ -225,7 +227,7 @@ export default function Notes() {
   const handleDeleteNote = async () => {
     if (!selectedNote) return;
 
-    if (confirm(`Are you sure you want to delete "${selectedNote.title}"?`)) {
+    if (await confirm(`Are you sure you want to delete "${selectedNote.title}"?`)) {
       try {
         if (autoSaveTimerRef.current) {
           clearTimeout(autoSaveTimerRef.current);
