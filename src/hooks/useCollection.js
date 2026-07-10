@@ -59,7 +59,7 @@ export function useCollection(collectionPath, constraints = [], orderField = nul
         unsubscribe();
       }, 100);
     };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [collectionPath, orderField, ...deps]);
 
   return { data, loading, error };

@@ -61,13 +61,13 @@ export default function Topbar({ onOpenSearch, onToggleSidebar }) {
         WebkitBackdropFilter: "blur(12px)",
       }}
     >
-      {/* Left: Mobile menu toggle + Page title */}
+      {/* Left: Menu toggle + Page title */}
       <div className="flex items-center gap-4 min-w-0 flex-shrink-0">
         <button
           onClick={onToggleSidebar}
-          className="lg:hidden text-zinc-400 hover:text-white transition-colors"
-          aria-label="Open sidebar"
-          title="Open sidebar"
+          className="text-zinc-400 hover:text-white transition-colors cursor-pointer"
+          aria-label="Toggle sidebar"
+          title="Toggle sidebar"
         >
           <RiMenuLine className="text-xl" />
         </button>

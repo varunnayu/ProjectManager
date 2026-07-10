@@ -37,13 +37,16 @@
   --color-slate-900: var(--color-zinc-900);
   --color-slate-950: var(--color-zinc-950);
 }
+
 /* ═══════════════════════════════════════════════════════════════════════
    DESIGN TOKENS & VARIABLES
    ═══════════════════════════════════════════════════════════════════════ */
 :root {
   /* Core Backgrounds */
-  --color-bg-primary: #000000; /* Pure black */
-  --color-bg-secondary: #09090b; /* Zinc 950 */
+  --color-bg-primary: #000000;
+  /* Pure black */
+  --color-bg-secondary: #09090b;
+  /* Zinc 950 */
   --color-bg-card: rgba(9, 9, 11, 0.6);
   --color-bg-input: rgba(24, 24, 27, 0.8);
 
@@ -99,7 +102,8 @@
   box-sizing: border-box;
 }
 
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
   min-height: 100vh;
@@ -151,7 +155,7 @@ html, body {
   position: fixed;
   inset: 0;
   z-index: -1;
-  background: 
+  background:
     radial-gradient(circle at 15% 50%, rgba(255, 255, 255, 0.03), transparent 25%),
     radial-gradient(circle at 85% 30%, rgba(255, 255, 255, 0.02), transparent 25%),
     radial-gradient(circle at 50% 80%, rgba(255, 255, 255, 0.015), transparent 25%);
@@ -179,6 +183,7 @@ html, body {
   .main-content {
     margin-left: 0;
   }
+
   .page-container {
     padding: 24px 20px;
   }
@@ -188,7 +193,7 @@ html, body {
   .page-container {
     padding: 16px 12px;
   }
-  
+
   .glass-card {
     backdrop-filter: blur(4px) !important;
     -webkit-backdrop-filter: blur(4px) !important;
@@ -393,26 +398,46 @@ html, body {
 
 /* Skeleton Loading */
 .skeleton {
-  background: linear-gradient(
-    90deg,
-    rgba(30, 41, 59, 0.5) 25%,
-    rgba(51, 65, 85, 0.6) 37%,
-    rgba(30, 41, 59, 0.5) 63%
-  );
+  background: linear-gradient(90deg,
+      rgba(30, 41, 59, 0.5) 25%,
+      rgba(51, 65, 85, 0.6) 37%,
+      rgba(30, 41, 59, 0.5) 63%);
   background-size: 400% 100%;
   animation: shimmer 1.5s ease-in-out infinite;
   border-radius: var(--radius-sm);
 }
 
 @keyframes shimmer {
-  0% { background-position: 100% 50%; }
-  100% { background-position: 0 50%; }
+  0% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0 50%;
+  }
 }
 
-.skeleton-title { height: 24px; width: 40%; }
-.skeleton-text { height: 16px; width: 80%; }
-.skeleton-card { height: 200px; width: 100%; border-radius: var(--radius-xl); }
-.skeleton-avatar { height: 40px; width: 40px; border-radius: 50%; }
+.skeleton-title {
+  height: 24px;
+  width: 40%;
+}
+
+.skeleton-text {
+  height: 16px;
+  width: 80%;
+}
+
+.skeleton-card {
+  height: 200px;
+  width: 100%;
+  border-radius: var(--radius-xl);
+}
+
+.skeleton-avatar {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+}
 
 /* Spinner */
 .spinner {
@@ -423,8 +448,13 @@ html, body {
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 /* Mobile Toggles */
@@ -447,6 +477,7 @@ html, body {
 }
 
 @media (min-width: 1024px) {
+
   .sidebar-close-btn,
   .topbar-menu-btn {
     display: none;
@@ -457,10 +488,12 @@ html, body {
 .markdown-preview p {
   margin-bottom: 1em;
 }
+
 .markdown-preview a {
   color: var(--color-accent);
   text-decoration: none;
 }
+
 .markdown-preview a:hover {
   text-decoration: underline;
 }
@@ -475,6 +508,7 @@ html, body {
     opacity: 0;
     transform: translateY(10px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);

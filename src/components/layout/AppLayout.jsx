@@ -8,6 +8,18 @@ import { ErrorBoundary } from "../ErrorBoundary";
 export default function AppLayout() {
   const [searchOpen, setSearchOpen] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Sync mobile state
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 1024);
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   // Global Ctrl+K / Cmd+K listener
   useEffect(() => {
@@ -21,6 +33,18 @@ export default function AppLayout() {
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
+
+  const handleToggleSidebar = () => {
+    if (isMobile) {
+      setSidebarOpen((prev) => !prev);
+    } else {
+      setSidebarCollapsed((prev) => !prev);
+    }
+  };
+
+  const currentSidebarWidth = isMobile
+    ? "280px"
+    : (sidebarCollapsed ? "80px" : "280px");
 
   return (
     <>
@@ -36,13 +60,17 @@ export default function AppLayout() {
         />
       )}
 
-      <div className="app-layout">
-        <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
+      <div className="app-layout" style={{ "--sidebar-width": currentSidebarWidth }}>
+        <Sidebar
+          isOpen={sidebarOpen}
+          onClose={() => setSidebarOpen(false)}
+          isCollapsed={!isMobile && sidebarCollapsed}
+        />
 
         <main className="main-content">
           <Topbar
             onOpenSearch={() => setSearchOpen(true)}
-            onToggleSidebar={() => setSidebarOpen((prev) => !prev)}
+            onToggleSidebar={handleToggleSidebar}
           />
 
           <div className="page-container animate-fade-in">

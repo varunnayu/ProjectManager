@@ -233,7 +233,7 @@ export default function ProjectCard({
   if (viewMode === "list") {
     return (
       <motion.div
-        className="glass-card p-4 flex flex-col md:flex-row md:items-center justify-between gap-4 w-full transition-all hover:translate-x-1"
+        className={`glass-card p-4 flex flex-col md:flex-row md:items-center justify-between gap-4 w-full transition-all hover:translate-x-1 ${menuOpen ? "z-30" : "z-0"}`}
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: index * 0.03, duration: 0.3 }}
@@ -303,7 +303,7 @@ export default function ProjectCard({
   // Default Grid View Mode
   return (
     <motion.div
-      className="glass-card p-5 flex flex-col justify-between min-h-[220px] transition-all hover:scale-[1.015] relative group"
+      className={`glass-card p-5 flex flex-col justify-between min-h-[220px] transition-all hover:scale-[1.015] relative group ${menuOpen ? "z-30" : "z-0"}`}
       initial={{ opacity: 0, y: 16 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.04, duration: 0.35, ease: "easeOut" }}
@@ -316,6 +316,7 @@ export default function ProjectCard({
           </div>
           <div className="flex items-center gap-1.5">
             {getStatusPill(status)}
+            {renderActionsMenu()}
           </div>
         </div>
 
@@ -371,8 +372,6 @@ export default function ProjectCard({
               {priority}
             </span>
           </div>
-
-          {renderActionsMenu()}
         </div>
       </div>
     </motion.div>
